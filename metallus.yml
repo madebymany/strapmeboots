@@ -9,6 +9,7 @@ jobs:
     packages:
       - type: debian
         name: strapmeboots
+        version: 0.1.0
         repos:
           - mxm-public
         target: install
