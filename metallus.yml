@@ -1,0 +1,14 @@
+software_groups: &software
+  - "base"
+
+jobs:
+  etcd:
+    builder: "make"
+    software_groups: *software
+    base: "ubuntu:12.04"
+    packages:
+      - type: debian
+        name: strapmeboots
+        repos:
+          - mxm-public
+        target: install
