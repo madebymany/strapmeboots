@@ -1,0 +1,29 @@
+<html>
+  <body>
+    <h1>Made by Many public debian package repository</h1>
+
+    <h2>Installing the repositories.</h2>
+
+    <p>Currently there are two available releases:</p>
+
+    <ul>
+      <li>stable main</li>
+      <li>unstable main</li>
+    </ul>
+
+    <p>
+      Install the MxM gpg key:<br/>
+      this requires root previleges<br />
+      apt-key adv --keyserver 'keys.gnupg.net' --recv-keys '7F40EF0A'
+    </p>
+
+    <p>
+      run the following command, it will create a apt.mxmdev.com.list in /etc/apt/sources.list.d/ <br />
+      to install experimental packages run the following command <br />
+      echo "deb http://apt.mxmdev.com unstable main" > /etc/apt/sources.list.d/apt.mxmdev.com.unstable.list<br />
+      to install stable packages run the following command <br />
+      echo "deb http://apt.mxmdev.com stable main" > /etc/apt/sources.list.d/apt.mxmdev.com.stable.list<br />
+    </p>
+
+  </body>
+</html>
