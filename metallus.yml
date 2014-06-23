@@ -10,6 +10,16 @@ jobs:
       - type: debian
         name: strapmeboots
         version: 0.1.0
+        depends:
+          - ntp
+          - curl
+          - htop
+          - mtr
+          - aptitude
+          - sudo
+          - vim-nox
+          - gdb
+          - strace
         repos:
           - mxm-public
         target: install
