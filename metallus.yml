@@ -20,6 +20,7 @@ jobs:
           - vim-nox
           - gdb
           - strace
+          - mxm-utils
         repos:
           - mxm-public
         target: install
