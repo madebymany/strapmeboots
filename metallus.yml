@@ -9,7 +9,7 @@ jobs:
     packages:
       - type: debian
         name: strapmeboots
-        version: 0.1.1
+        version: 0.1.2
         depends:
           - ntp
           - curl
@@ -21,6 +21,7 @@ jobs:
           - gdb
           - strace
           - mxm-utils
+          - runit
         repos:
           - mxm-public
         target: install
