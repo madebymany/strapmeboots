@@ -1,28 +1,8 @@
 #!/usr/bin/python2
-import sys
 import argparse
 import copy
-from os import path, devnull
-from subprocess import check_call, check_output, call, CalledProcessError
-
-# install dependencies
-with open(devnull, "w") as f:
-    try:
-        package = 'python-software-properties'
-        check_call(['dpkg', '-s', package], stdout=f)
-    except CalledProcessError as e:
-        print 'installing package \'{}\''.format(package)
-        check_call(['apt-get', 'update'])
-        check_call(['apt-get', 'install', '-y', package])
-
-    try:
-        package = 'apt-transport-s3'
-        check_call(['dpkg', '-s', package], stdout=f)
-    except CalledProcessError as e:
-        print 'installing package \'{}\''.format(package)
-        check_call(['apt-add-repository', '-y',  'ppa:mxmops/packages'], stdout=f)
-        check_call(['apt-get', 'update'])
-        check_call(['apt-get', 'install', '-y', package])
+import os
+from subprocess import check_call, check_output
 
 
 def s3_deb_uri(arch, access_id, secret_key, bucket, distribution,
@@ -34,10 +14,12 @@ def s3_deb_uri(arch, access_id, secret_key, bucket, distribution,
         values['s3_host'] = "s3.amazonaws.com"
 
     return "deb [arch={arch}] " \
-           "s3://{access_id}:[{secret_key}]@{s3_host}/{bucket} " \
-            "{distribution} {components}".format(**values)
+        "s3://{access_id}:[{secret_key}]@{s3_host}/{bucket} " \
+        "{distribution} {components}".format(**values)
 
-parser = argparse.ArgumentParser(description='Add apt S3 url\'s to /etc/apt/sources.list.d/')
+
+parser = argparse.ArgumentParser(
+    description='Add apt S3 url\'s to /etc/apt/sources.list.d/')
 
 parser.add_argument('architectures', type=str)
 parser.add_argument('access_id', type=str)
@@ -49,10 +31,12 @@ parser.add_argument('components', type=str)
 parser.add_argument('gpg_id', type=str)
 args = parser.parse_args()
 
-s3_url = s3_deb_uri(args.architectures, args.access_id, args.secret_key, args.bucket, args.distribution, args.components, args.region)
+s3_url = s3_deb_uri(args.architectures, args.access_id, args.secret_key,
+                    args.bucket, args.distribution, args.components,
+                    args.region)
 
 apt_list_path = '/etc/apt/sources.list.d/{}.s3.list'.format(args.bucket)
-if path.isdir(apt_list_path):
+if os.path.isdir(apt_list_path):
     os.remove(apt_list_path)
 
 with open(apt_list_path, 'w') as f:
@@ -60,10 +44,11 @@ with open(apt_list_path, 'w') as f:
 
 key = args.gpg_id
 if key is not None:
-    with open(devnull, "w") as f:
+    with open(os.devnull, "w") as f:
         key_list = check_output(['apt-key', 'list'])
         if key not in key_list:
-            print 'adding gpg key \'{}\''.format(key)
-            check_call(['apt-key', 'adv', '--keyserver', 'keys.gnupg.net', '--recv-keys', key], stdout=f)
+            print 'Adding gpg key \'{}\''.format(key)
+            check_call(['apt-key', 'adv', '--keyserver', 'keys.gnupg.net',
+                        '--recv-keys', key], stdout=f)
 
 print 'Added S3 apt repository \'{}\''.format(args.bucket)

@@ -22,6 +22,7 @@ jobs:
           - strace
           - mxm-utils
           - runit
+          - apt-transport-s3
         repos:
           - mxm-public
         target: install
