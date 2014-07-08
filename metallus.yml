@@ -21,7 +21,7 @@ jobs:
           - gdb
           - strace
           - mxm-utils
-          - runit
+          - runit-common
           - apt-s3
         repos:
           - mxm-public
