@@ -8,10 +8,10 @@ from subprocess import check_call, check_output
 def s3_deb_uri(arch, access_id, secret_key, bucket, distribution,
                components, region=None):
     values = copy.deepcopy(locals())
-    if region is not None:
-        values['s3_host'] = "s3-{0}.amazonaws.com".format(region)
-    else:
+    if region is None or region == "us-east-1":
         values['s3_host'] = "s3.amazonaws.com"
+    else:
+        values['s3_host'] = "s3-{0}.amazonaws.com".format(region)
 
     return "deb [arch={arch}] " \
         "s3://{access_id}:[{secret_key}]@{s3_host}/{bucket} " \
