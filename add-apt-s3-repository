@@ -13,8 +13,11 @@ def s3_deb_uri(arch, access_id, secret_key, bucket, distribution,
     else:
         values['s3_host'] = "s3-{0}.amazonaws.com".format(region)
 
+    values['creds'] = "{access_id}:[{secret_key}]@".format(**values) \
+        if access_id else ""
+
     return "deb [arch={arch}] " \
-        "s3://{access_id}:[{secret_key}]@{s3_host}/{bucket} " \
+        "s3://{creds}{s3_host}/{bucket} " \
         "{distribution} {components}".format(**values)
 
 
