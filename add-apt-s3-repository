@@ -38,7 +38,7 @@ s3_url = s3_deb_uri(args.architectures, args.access_id, args.secret_key,
                     args.bucket, args.distribution, args.components,
                     args.region)
 
-apt_list_path = '/etc/apt/sources.list.d/{}.s3.list'.format(args.bucket)
+apt_list_path = '/etc/apt/sources.list.d/{0}-{1}.s3.list'.format(args.bucket, args.distribution)
 if os.path.isdir(apt_list_path):
     os.remove(apt_list_path)
 
