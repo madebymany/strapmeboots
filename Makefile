@@ -13,6 +13,7 @@ build:
 install:
 	install -o root -g root add-apt-s3-repository /usr/local/bin
 	install -o root -g root global-env /usr/local/bin
+	install -o root -g root ebs-mount /usr/local/bin
 	install -o root -g root ok /usr/local/bin
 	mkdir -p /etc/sv/ok
 	install -o root -g root -D etc/sv/ok/run /etc/sv/ok/run

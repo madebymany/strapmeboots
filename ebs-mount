@@ -1,0 +1,49 @@
+#!/bin/bash
+set -e
+
+usage() {
+echo <<-EOF
+Usage:       ebs-mount -p [path] -f [format_type] -d [device_id] -n [name]
+Description: will mount and format an EBS volume for a system path, will also add it to fstab to automount on restart
+EOF
+}
+
+if [[ $# -eq 0 ]]
+then
+    usage
+    exit 1
+fi
+
+while getopts ":p:f:d:n:" o; do
+    case "${o}" in
+        p)
+            path=${OPTARG}
+            ;;
+        f)
+            format_type=${OPTARG}
+            ;;
+        d)
+            device_id=${OPTARG}
+            ;;
+        n)
+            name=${OPTARG}
+            ;;
+        *)
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+if [[ -z "$(lsblk | grep ${device_id})" ]]
+then
+  echo "${device_id} could not be found, cannot mount volume"
+  exit 1
+fi
+
+mkfs -t "${format_type}" "/dev/${device_id}"
+
+mkdir -p "${path}"
+mount "/dev/${device_id}" "${path}"
+
+echo "/dev/${device_id} ${path} ${format} defaults,nofail 0 2" | tee "/etc/fstab.d/${device_id}"
