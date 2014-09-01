@@ -46,4 +46,4 @@ mkfs -t "${format_type}" "/dev/${device_id}"
 mkdir -p "${path}"
 mount "/dev/${device_id}" "${path}"
 
-echo "/dev/${device_id} ${path} ${format} defaults,nofail 0 2" | tee "/etc/fstab.d/${device_id}"
+echo "/dev/${device_id} ${path} ${format} defaults,nofail,nobootwait 0 2" | tee -a "/etc/fstab"
