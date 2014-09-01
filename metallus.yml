@@ -9,7 +9,7 @@ jobs:
     packages:
       - type: debian
         name: strapmeboots
-        version: 2:0.0.4
+        version: 2:0.0.5
         depends:
           - ntp
           - curl
