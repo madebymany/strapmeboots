@@ -9,7 +9,7 @@ jobs:
     packages:
       - type: debian
         name: strapmeboots
-        version: 2:0.0.6
+        version: 2:0.0.7
         depends:
           - ntp
           - curl
@@ -23,6 +23,7 @@ jobs:
           - mxm-utils
           - runit-common
           - apt-transport-s3
+          - python-aws
         repos:
           - mxm-public
         target: install
