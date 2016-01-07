@@ -10,7 +10,7 @@ jobs:
   strapmeboots:
     builder: "make"
     software_groups: *software
-    base: "ubuntu:12.04"
+    base: "quay.io/madebymany/build-bases:trusty"
     packages:
       - type: debian
         name: strapmeboots
