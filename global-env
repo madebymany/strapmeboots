@@ -1,4 +1,0 @@
-#!/bin/sh
-set -e
-
-eval $(sed -e "s/^/export /" /etc/environment)
