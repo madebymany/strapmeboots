@@ -11,10 +11,13 @@ jobs:
     builder: "make"
     software_groups: *software
     base: "quay.io/madebymany/build-bases:trusty"
+    promote_through:
+      - trusty-unstable
+      - trusty-stable
     packages:
       - type: debian
         name: strapmeboots
-        version: 2:0.0.12
+        version: 2:0.0.13
         depends:
           - ntp
           - curl
