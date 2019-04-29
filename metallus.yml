@@ -3,17 +3,17 @@ software_groups: &software
 
 packages:
   branch_codenames:
-    master: trusty-unstable
-    production: trusty-stable
+    master: bionic-unstable
+    production: bionic-stable
 
 jobs:
   strapmeboots:
     builder: "make"
     software_groups: *software
-    base: "quay.io/madebymany/build-bases:trusty"
+    base: "quay.io/madebymany/build-bases:bionic"
     promote_through:
-      - trusty-unstable
-      - trusty-stable
+      - bionic-unstable
+      - bionic-stable
     packages:
       - type: debian
         name: strapmeboots
