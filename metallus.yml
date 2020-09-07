@@ -3,17 +3,17 @@ software_groups: &software
 
 packages:
   branch_codenames:
-    master: bionic-unstable
-    production: bionic-stable
+    master: focal-unstable
+    production: focal-stable
 
 jobs:
   strapmeboots:
     builder: "make"
     software_groups: *software
-    base: "quay.io/madebymany/build-bases:bionic"
+    base: "quay.io/madebymany/build-bases:focal"
     promote_through:
-      - bionic-unstable
-      - bionic-stable
+      - focal-unstable
+      - focal-stable
     packages:
       - type: debian
         name: strapmeboots
